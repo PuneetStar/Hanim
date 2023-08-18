@@ -218,7 +218,7 @@ class Client:
     @requires_build
     @requires_token
     @cached
-    async def get_episode(self, id: int, hentai_id: str) -> models.HentaiEpisode:
+    async def get_episode(self, id: int, hentai_id: int) -> models.HentaiEpisode:
         """
         Get full hentai episode info. Raises `exceptions.HentaiEpisodeNotFound` if episode was not found.
         
@@ -228,7 +228,12 @@ class Client:
         Returns:
             `models.HentaiEpisode` - [Docs](https://github.com)
         """
-        data = await self._request("GET", f"hentai/{hentai_id}/episode/{id}")                  
+        data = await self._request("GET", f"hentai/{hentai_id}/episode/{id}")
+        
+        # Not found
+        if type(data["data"]) == str:
+            raise exceptions.HentaiEpisodeNotFound()
+        
         return models.HentaiEpisode(**data["data"])
     
     
