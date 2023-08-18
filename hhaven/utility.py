@@ -21,7 +21,7 @@ def _raise_for_status(status: int):
         raise exceptions.HHavenException("Something went wrong.", status)
     
 
-def _get_status_from_response(response: typing.Mapping[str, typing.Any]) -> int | None:
+def _get_status_from_response(response: typing.Mapping[str, typing.Optional]) -> int | None:
     """Determine status using response text."""
     
     data = response.get("data", None)
