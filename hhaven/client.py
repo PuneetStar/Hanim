@@ -229,7 +229,6 @@ class Client:
             `models.HentaiEpisode` - [Docs](https://github.com)
         """
         data = await self._request("GET", f"hentai/{hentai_id}/episode/{id}")
-        print(data)
         # Not found
         if type(data["data"]) == str:
             raise exceptions.HentaiEpisodeNotFound()
